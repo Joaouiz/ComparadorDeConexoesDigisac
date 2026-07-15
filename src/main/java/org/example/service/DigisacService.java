@@ -17,7 +17,7 @@ public class DigisacService {
     public List<Conexao> gerarListaConexoes(String token) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         ObjectMapper mapper = new ObjectMapper();
-        String url = "{{URL}}/api/v1/services?query={%22where%22%3A{%22archivedAt%22%3A{%22%24eq%22%3Anull}}%2C%22order%22%3A[[%22name%22%2C%22asc%22]]%2C%22page%22%3A1%2C%22perPage%22%3A50}";
+        String url = "";
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -28,7 +28,7 @@ public class DigisacService {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         System.out.println(response.statusCode());
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(response.body())));
+        //System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(response.body())));
         //^^^^printa o json
 
         JsonNode root = mapper.readTree(response.body());
@@ -47,17 +47,16 @@ public class DigisacService {
             ));
         }
         */
-        for (int i = 0; i <= 50; i++) {
-            if (root.get("connections").get(i) == null){ //talvez de certo pra verificar se o json acabou
-                continue;
-            }
+        for (int i = 0; i < root.get("total").asInt(); i++) {
 
-            conexoes.add(new Conexao(
-                    root.get("connections").get(i).get("name").asText(),
-                    root.get("connections").get(i).get("number").asText(),
-                    root.get("connections").get(i).get("idService").asText(),
-                    root.get("connections").get(i).get("status").asText()
-            ));
+            JsonNode conexao = root.get("data").get(i);
+                String nome = conexao.get("name").asText();
+                String id = conexao.get("id").asText();
+                JsonNode data = conexao.get("data");
+                    JsonNode status = data.get("status");
+                    String connected = status.path("isConnected").asText();
+
+            conexoes.add(new Conexao(nome, "jujuba", id, connected));
         }
 
         return conexoes;

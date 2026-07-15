@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 public class AuthenticationService {
     ObjectMapper mapper = new ObjectMapper();
     HttpClient client = HttpClient.newHttpClient();
-    String url = "{{URL}}/api/v1/oauth/token";
+    String url = "";
     //SUBSTITUIR {{URL}}
 
     public AuthenticationService(){
@@ -29,6 +29,7 @@ public class AuthenticationService {
                 a menos que seja esse o header:
                 .header("Content-Type","application/json")
                 */
+                .header("Content-Type","application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequestToken))
                 .build();
 
