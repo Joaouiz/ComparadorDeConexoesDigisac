@@ -4,13 +4,17 @@ public class Conexao {
     String nomeConexao;
     String numeroConexao;
     String idConexao;
-    String statusConexao;
+    boolean statusConexao;
 
-    public Conexao(String nomeConexao, String numeroConexao, String idConexao, String statusConexao) {
+    public Conexao(String nomeConexao, String numeroConexao, String idConexao, boolean statusConexao) {
         this.nomeConexao = nomeConexao;
         this.numeroConexao = numeroConexao;
         this.idConexao = idConexao;
         this.statusConexao = statusConexao;
+    }
+
+    public Conexao() {
+
     }
 
     public String getNomeConexao() {
@@ -19,7 +23,10 @@ public class Conexao {
     public String getNumeroConexao() {
         return numeroConexao;
     }
-    public String getStatusConexao() {
+    public boolean getStatusConexao() {
         return statusConexao;
+    }
+    public String getIdConexao() {
+        return idConexao;
     }
 }

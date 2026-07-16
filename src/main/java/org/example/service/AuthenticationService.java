@@ -13,7 +13,6 @@ public class AuthenticationService {
     ObjectMapper mapper = new ObjectMapper();
     HttpClient client = HttpClient.newHttpClient();
     String url = "";
-    //SUBSTITUIR {{URL}}
 
     public AuthenticationService(){
 
@@ -25,10 +24,6 @@ public class AuthenticationService {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
-                /*cade o header ne, ja que eh pra pegar o token eu n acho q faz sentido ter o token,
-                a menos que seja esse o header:
-                .header("Content-Type","application/json")
-                */
                 .header("Content-Type","application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequestToken))
                 .build();

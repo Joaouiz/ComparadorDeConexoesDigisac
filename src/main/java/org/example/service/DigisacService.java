@@ -18,7 +18,6 @@ public class DigisacService {
         HttpClient client = HttpClient.newHttpClient();
         ObjectMapper mapper = new ObjectMapper();
         String url = "";
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Authorization", "Bearer " + token)
@@ -27,7 +26,7 @@ public class DigisacService {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(response.statusCode());
+        //System.out.println(response.statusCode());
         //System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(response.body())));
         //^^^^printa o json
 
@@ -50,11 +49,11 @@ public class DigisacService {
         for (int i = 0; i < root.get("total").asInt(); i++) {
 
             JsonNode conexao = root.get("data").get(i);
-                String nome = conexao.get("name").asText();
-                String id = conexao.get("id").asText();
-                JsonNode data = conexao.get("data");
-                    JsonNode status = data.get("status");
-                    String connected = status.path("isConnected").asText();
+            String nome = conexao.get("name").asText();
+            String id = conexao.get("id").asText();
+            JsonNode data = conexao.get("data");
+            JsonNode status = data.get("status");
+            boolean connected = status.path("isConnected").asBoolean();
 
             conexoes.add(new Conexao(nome, "jujuba", id, connected));
         }
