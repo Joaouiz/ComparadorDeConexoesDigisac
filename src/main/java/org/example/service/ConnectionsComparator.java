@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConnectionsComparator {
+    private static final ZoneId ZONE = ZoneId.of("America/Sao_Paulo");
+
     public List<Status> compare(List<Conexao> listaInicio, List<Conexao> listaFinal) {
         List<Status> relatorio = new ArrayList<>();
 
@@ -22,13 +24,12 @@ public class ConnectionsComparator {
                             relatorio.add(new Status(true, false,false,false,false, false));
 
                             if (f.getLastSync() != null &&  f.getLastShutdown() != null) {
-                                ZoneId zone = ZoneId.of("America/Sao_Paulo");
-                                LocalDateTime dataSync = f.getLastSync().atZone(zone).toLocalDateTime();
-                                LocalDateTime dataShutdown = f.getLastShutdown().atZone(zone).toLocalDateTime();
+                                LocalDateTime dataSync = f.getLastSync().atZone(ZONE).toLocalDateTime();
+                                LocalDateTime dataShutdown = f.getLastShutdown().atZone(ZONE).toLocalDateTime();
 
-                                LocalDate hoje = LocalDate.now(zone);
-                                LocalDate diaSync = f.getLastSync().atZone(zone).toLocalDate();
-                                LocalDate diaShutdown = f.getLastShutdown().atZone(zone).toLocalDate();
+                                LocalDate hoje = LocalDate.now(ZONE);
+                                LocalDate diaSync = f.getLastSync().atZone(ZONE).toLocalDate();
+                                LocalDate diaShutdown = f.getLastShutdown().atZone(ZONE).toLocalDate();
 
                                 if (dataShutdown.isAfter(dataSync) && diaSync.equals(hoje) && diaShutdown.equals(hoje)) {
                                     relatorio.add(new Status(false, false, false, false, false, true));
