@@ -2,6 +2,8 @@ package org.example;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.example.model.Conexao;
 import org.example.model.Status;
 import org.example.service.ConnectionsComparator;
@@ -24,10 +26,12 @@ public class Main {
         DigisacService digisacService = new DigisacService();
         Scanner scanner = new Scanner(System.in);
         ObjectMapper mapper = new ObjectMapper();
-
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        //digisacService.testadorGet("");
         //System.out.println(token);
 
-        int continuaCaida = 0, continuaOnline = 0, caiu = 0, subiu = 0, novaConexao = 0;
+        int continuaCaida = 0, continuaOnline = 0, caiu = 0, subiu = 0, novaConexao = 0, subiuCaiu = 0;
 
             System.out.println("1 - Lista do inicio do dia\n2 - Lista do final do dia");
             int escolha = scanner.nextInt();
@@ -37,6 +41,7 @@ public class Main {
                 listaEntrada = digisacService.gerarListaConexoes("");
 
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File("conexoesInicio.json"), listaEntrada);
+
             } else if (escolha == 2) {
                 List<Conexao> listaSaida = new ArrayList<>();
                 listaSaida = digisacService.gerarListaConexoes("");
@@ -66,14 +71,20 @@ public class Main {
                     if (s.getNovaConexao()) {
                         novaConexao++;
                     }
+                    if (s.getSubiuCaiu()) {
+                        subiuCaiu++;
+                    }
+
                 }
                 System.out.println("--------------------------");
                 System.out.println("Relatorio Conexoes");
                 System.out.println("--------------------------");
                 System.out.println("Mantiveram caidas " + continuaCaida + " conexoes");
-                System.out.println("Mantiveram Online " + continuaOnline + " conexoes");
+                System.out.println("Mantiveram online " + continuaOnline + " conexoes");
+                System.out.println("Subiu caiu " + subiuCaiu + " conexoes");
                 System.out.println("Cairam " + caiu + " conexoes");
                 System.out.println("Subiram " + subiu + " conexoes");
+
                 System.out.println("E por fim, tivemos " + novaConexao + " novas conexoes");
 
             } else {

@@ -6,13 +6,15 @@ public class Status {
     boolean caiu;
     boolean subiu;
     boolean novaConexao;
+    boolean subiuCaiu;
 
-    public Status(boolean continuaCaida, boolean continuaOnline, boolean caiu, boolean subiu, boolean novaConexao) {
+    public Status(boolean continuaCaida, boolean continuaOnline, boolean caiu, boolean subiu, boolean novaConexao, boolean subiuCaiu) {
         this.continuaCaida = continuaCaida;
         this.continuaOnline = continuaOnline;
         this.caiu = caiu;
         this.subiu = subiu;
         this.novaConexao = novaConexao;
+        this.subiuCaiu = subiuCaiu;
     }
 
     public boolean getContinuaCaida() {
@@ -29,5 +31,8 @@ public class Status {
     }
     public boolean getNovaConexao() {
         return novaConexao;
+    }
+    public boolean getSubiuCaiu() {
+        return subiuCaiu;
     }
 }
