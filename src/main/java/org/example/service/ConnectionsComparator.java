@@ -16,6 +16,12 @@ public class ConnectionsComparator {
 
         for (Conexao i : listaInicio) {
             for (Conexao f : listaFinal) {
+                if (!listaInicio.contains(f.getIdConexao())) {
+                    //nova conexao
+                    relatorio.add(new Status(true, false,false,false,true, false));
+                    break;
+                }
+
                 if (i.getIdConexao().equals(f.getIdConexao())) {
                     //ACHOU A CONEXAO
                     if (i.getStatusConexao() == f.getStatusConexao()) {
@@ -52,13 +58,12 @@ public class ConnectionsComparator {
                         relatorio.add(new Status(false, false,false,true,false, false));
                         break;
                     }
-                    if (f.getLastShutdown() == null){
+                    /*if (f.getLastShutdown() == null){
                         //SE NUNCA CAIU EH PQ EH NOVA
                         relatorio.add(new Status(true, false,false,false,true, false));
                         break;
-                    }
+                    }*/
                 }
-
             }
         }
 

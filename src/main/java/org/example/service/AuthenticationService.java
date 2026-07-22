@@ -12,7 +12,7 @@ import java.net.http.HttpResponse;
 public class AuthenticationService {
     ObjectMapper mapper = new ObjectMapper();
     HttpClient client = HttpClient.newHttpClient();
-    String url = "";
+    String url = "https://eggeremesquita.digisac.app/api/v1/oauth/token";
 
     public AuthenticationService(){
 
