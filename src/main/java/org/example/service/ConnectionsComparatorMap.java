@@ -53,11 +53,11 @@ public class ConnectionsComparatorMap {
                         relatorio.add(new Status(false, true,false,false,false, false));
                     }
                 }
-                if(i.getStatusConexao() && !f.getStatusConexao()) {
+                else if(i.getStatusConexao() && !f.getStatusConexao()) {
                     //CONEXAO CAIU
                     relatorio.add(new Status(false, false,true,false,false, false));
                 }
-                if(!i.getStatusConexao() && f.getStatusConexao())  {
+                else if(!i.getStatusConexao() && f.getStatusConexao())  {
                     //CONEXAO SUBIU
                     relatorio.add(new Status(false, false,false,true,false, false));
                 }

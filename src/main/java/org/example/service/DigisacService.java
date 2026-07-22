@@ -29,25 +29,13 @@ public class DigisacService {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         //System.out.println(response.statusCode());
-        System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(response.body())));
+        //System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(mapper.readTree(response.body())));
         //^^^^printa o json
+
+        List<Conexao> conexoes = new ArrayList<>();
 
         JsonNode root = mapper.readTree(response.body());
 
-        // Exemplo pegacao de dados
-        // root.get("candidates").get(0).get("content").get("parts").get(0).get("text").asText()
-
-        List<Conexao> conexoes = new ArrayList<>();
-        /*
-        for (JsonNode c : root.get("connections")) {
-            conexoes.add(new Conexao(
-                    get(c).get("name").asText(),
-                    get(c).get("number").asText(),
-                    get(c).get("idService").asText(),
-                    get(c).get("status").asText()
-            ));
-        }
-        */
         for (int i = 0; i < root.get("total").asInt(); i++){
             JsonNode conexao = root.get("data").get(i);
 

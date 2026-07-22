@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.example.model.Conexao;
 import org.example.model.Status;
 import org.example.service.ConnectionsComparator;
+import org.example.service.ConnectionsComparatorMap;
 import org.example.service.DigisacService;
 import org.example.service.AuthenticationService;
 
@@ -19,8 +20,8 @@ import java.util.Scanner;
 public class Main {
     static void main() throws IOException, InterruptedException {
 
-        String email = ""; //PREENCHER EMAIL
-        String password = ""; //PREENCHER SENHA
+        String email = "joao.ordines@eem.adv.br"; //PREENCHER EMAIL
+        String password = "%.qe6=D["; //PREENCHER SENHA
         AuthenticationService validacao = new AuthenticationService();
         //String token = validacao.gerarToken(email, password);
         DigisacService digisacService = new DigisacService();
@@ -48,7 +49,7 @@ public class Main {
 
                 mapper.writerWithDefaultPrettyPrinter().writeValue(new File("conexoesFim.json"), listaSaida);
 
-                ConnectionsComparator comparador = new ConnectionsComparator();
+                ConnectionsComparatorMap comparador = new ConnectionsComparatorMap();
 
                 List<Status> kpop = new ArrayList<>();
                 List<Conexao> listaEntrada = mapper.readValue(new File("conexoesInicio.json"), new TypeReference<List<Conexao>>() {});
